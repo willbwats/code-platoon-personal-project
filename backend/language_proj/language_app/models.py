@@ -21,5 +21,5 @@ class Profile(models.Model):
     discord_name = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.first_name
 
