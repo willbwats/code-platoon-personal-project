@@ -16,4 +16,3 @@ class UserViewSet(ModelViewSet):
 class LanguageViewSet(ModelViewSet):
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
-

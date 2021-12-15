@@ -6,7 +6,7 @@ r = DefaultRouter()
 
 
 r.register(r'profile', ProfileViewSet, basename='profile')
-r.register(r'language', LanguageViewSet, basename='language')
+r.register(r'languages', LanguageViewSet, basename='languages')
 r.register(r'user', UserViewSet, basename='user')
 
 urlpatterns = r.urls
