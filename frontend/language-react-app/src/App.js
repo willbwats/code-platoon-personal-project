@@ -1,12 +1,14 @@
-import Header from './components/Header.js';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+
+//pages 
 import Home from './pages/Home.js'
 import Translate from './pages/Translate.js'
 import Resources from './pages/Resources.js'
 
 //materialUI
 import { makeStyles } from "@material-ui/core/styles";
+import Header from './components/Header.js';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import navbarsStyle from "assets/jss/material-kit-pro-react/views/componentsSections/navbarsStyle.js";
@@ -24,6 +26,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        {/* ---------------  NAV BAR ----------------- */}
           <Header 
             brand="Language Exchange"
             color="primary"
@@ -36,14 +39,7 @@ function App() {
                   </ListItem>
                   <ListItem className={classes.listItem}>
                     <Link to="/resources" style={{padding: 0}} className={classes.navLink} color="transparent">
-                      <Button
-                        href="/resources"
-                        className={classes.navLink}
-                        onClick={e => e.preventDefault()}
-                        color="transparent"
-                      >
-                        Find Resources
-                      </Button>
+                        <Button color="transparent">Find Resources</Button>
                     </Link>
                   </ListItem>
                   <ListItem className={classes.listItem}>
@@ -87,11 +83,16 @@ function App() {
                 </List>
             }
             />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/translate" element={<Translate />} />
-          <Route exact path="/resources" element={<Resources />} />
-        </Routes>
+
+            {/* ---------------    END OF NAV BAR ----------------- */}
+        <div className="main-content-section">
+
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/translate" element={<Translate />} />
+            <Route exact path="/resources" element={<Resources />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </div>
   );
