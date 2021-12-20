@@ -17,11 +17,21 @@ function BookFinder() {
     //Open library books API call
     const searchBooks = async (searchText) => {
         console.log("Calling API..")
-        const res = await fetch(`http://openlibrary.org/search.json?q="${searchText}"&limit=5`);
+        const res = await fetch(`http://openlibrary.org/search.json?q="${searchText}"&limit=20`);
         let books = await res.json();
 
         console.log("populating book cards");
         setBookArr(books);
+    }
+
+    const filterBooks = (book) => {
+        // books that dont have isbns (like one in every 10) breaks my app
+        // not an ideal solution but I'm just filtering them out
+
+        return Object.keys(book).includes("isbn") &&
+        Object.keys(book).includes("author_name") &&
+        Object.keys(book).includes("key") &&
+        Object.keys(book).includes("title");
     }
 
     const showBooks = (books) => {
@@ -29,8 +39,9 @@ function BookFinder() {
         let newBookArr = []
         books.map((book, index) => {
           return newBookArr.push(
-            <span key={index}>
+            <span className="book-card" key={index}>
                 <BookCard
+                    bookKey={book["key"]}
                     author={book["author_name"][0]}
                     title={book["title"]}
                     imgSrc={book["isbn"][0]}
@@ -49,10 +60,7 @@ function BookFinder() {
         console.log("Search button clicked..");
         searchBooks(searchText);
     }
-    
-    // React.useEffect(() => {
-    //     console.log("book cards were updated.")
-    // },[bookArr]);
+
 
     return (
         <div>
@@ -80,7 +88,7 @@ function BookFinder() {
                 <GridItem xs={12} sm={12} md={12}>
                 <GridContainer sx={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
                 {bookArr ? 
-                showBooks(bookArr["docs"]) :
+                showBooks(bookArr["docs"].filter(filterBooks)) :
                 <h5>Search to see books here</h5>
                 }
                 </GridContainer>

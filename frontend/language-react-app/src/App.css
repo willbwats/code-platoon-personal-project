@@ -24,6 +24,13 @@
   padding-top: 50px;
 }
 
+.book-card {
+  max-height: 500px;
+  margin-right: 10px;
+  margin-bottom: 40px;
+  margin-left: 10px;
+}
+
 .book-finder-div {
   text-align: center;
   padding-top: 50px;

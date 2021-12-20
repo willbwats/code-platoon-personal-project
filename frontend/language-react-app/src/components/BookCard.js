@@ -32,7 +32,11 @@ export default function BookCard(props) {
     const classes = useStyles();
 
     const genAmazonLink = () => {
-        return `https://www.amazon.com/s?k=${props.imgSrc}`
+        return `https://www.amazon.com/s?k=${props.imgSrc}`;
+    }
+
+    const genLibraryLink = () => {
+        return `https://openlibrary.org${props.bookKey}`;
     }
 
     return (
@@ -48,7 +52,8 @@ export default function BookCard(props) {
             <p>
             {props.author}
             </p>
-            <Link to="{genAmazonLink()}"><Button color="primary">Search on Amazon</Button></Link>
+            <a target="_blank" href={genAmazonLink()}><Button color="primary">Search Amazon</Button></a>
+            <a target="_blank" href={genLibraryLink()}><Button color="primary">Read Online Free</Button></a>
         </CardBody>
         </Card>
     );
