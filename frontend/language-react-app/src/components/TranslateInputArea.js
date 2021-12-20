@@ -9,7 +9,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import styles from "assets/jss/material-kit-pro-react/customSelectStyle.js";
 import Select from "@material-ui/core/Select";
 import Button from '../assets/jss/material-kit-pro-react/components/CustomButtons/Button.js';
-import Favorite from '@material-ui/icons/Favorite';
+import Translate from '@material-ui/icons/Translate';
 
 const useStyles = makeStyles(styles);
 
@@ -17,16 +17,18 @@ function TranslationInputArea() {
     const [languageFromSelect, setlanguageFromSelect] = React.useState("");
     const [languageToSelect, setlanguageToSelect] = React.useState("");
     const [translationText, setTranslationText] = React.useState("Translation");
+    
+    // Language select handlers
     const handleLanguageFrom = event => {
         setlanguageFromSelect(event.target.value);
-      };
-
+    };
+    
     const handleLanguageTo = event => {
         setlanguageToSelect(event.target.value);
     };
     
     const classes = useStyles();
-
+    
     return (
       <div className="translate-input-area">
         <GridContainer>
@@ -156,8 +158,6 @@ function TranslationInputArea() {
         {/* ------------ INPUT TEXT FOR TRANSLATION ---------------- */}
           <GridItem xs={12} sm={8} md={4}>
                 <CustomInput
-                    multiline
-                    maxRows={4}
                     labelText="Input Text"
                     id="float"
                     formControlProps={{
@@ -165,7 +165,7 @@ function TranslationInputArea() {
                     }}
                     
                 />
-                <Button color="primary" round><Favorite />Translate</Button>
+                <Button color="primary" round><Translate />Translate</Button>
             </GridItem>
 
             <GridItem xs={12} sm={6} md={4} lg={4}>
