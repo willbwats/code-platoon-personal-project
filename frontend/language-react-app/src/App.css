@@ -24,6 +24,11 @@
   padding-top: 50px;
 }
 
+.book-finder-div {
+  text-align: center;
+  padding-top: 50px;
+}
+
 .btn-file {
   position: relative;
   overflow: hidden;
