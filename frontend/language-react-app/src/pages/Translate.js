@@ -9,11 +9,11 @@ function Translate() {
       <div>
             <InfoArea
                 title="Translate"
-                description="Choose languages to translate to and from. Powered by Google Cloud Translation"
+                description="Choose languages to translate to and from. This app uses LibreTranslate API."
                 icon={TranslateIcon}
                 iconColor="primary"
             />
-            
+
             <TranslateInputArea />
 
 

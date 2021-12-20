@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GridItem from "../assets/jss/material-kit-pro-react/components/Grid/GridItem.js";
 import GridContainer from "../assets/jss/material-kit-pro-react/components/Grid/GridContainer.js";
 import CustomInput from '../assets/jss/material-kit-pro-react/components/CustomInput/CustomInput.js';
@@ -16,9 +16,14 @@ const useStyles = makeStyles(styles);
 function TranslationInputArea() {
     const [languageFromSelect, setlanguageFromSelect] = React.useState("");
     const [languageToSelect, setlanguageToSelect] = React.useState("");
-    const [translationText, setTranslationText] = React.useState("Translation");
+
+    // Text to be translated, inputted by user
+    const [inputText, setInputText] = React.useState("");
+
+    // The resulting translation
+    const [translationText, setTranslationText] = React.useState("");
     
-    // Language select handlers
+    // Handlers
     const handleLanguageFrom = event => {
         setlanguageFromSelect(event.target.value);
     };
@@ -26,13 +31,40 @@ function TranslationInputArea() {
     const handleLanguageTo = event => {
         setlanguageToSelect(event.target.value);
     };
+
+    const handleInputTextChange = event => {
+        setInputText(event.target.value);
+    }
     
+    // The function that actually does the translation
+    const translate = async () => {
+        console.log("fetching translation");
+        console.log(`q: ${inputText}`);
+        console.log(`source: ${languageFromSelect}`);
+        console.log(`target: ${languageToSelect}`);
+
+        const res = await fetch("https://libretranslate.de/translate", {
+        method: "POST",
+        body: JSON.stringify({
+            q: inputText,
+            source: languageFromSelect,
+            target: languageToSelect,
+            format: "text"
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+        let translationObj = await res.json();
+        setTranslationText(translationObj["translatedText"]);
+    };
+
     const classes = useStyles();
     
     return (
       <div className="translate-input-area">
         <GridContainer>
         <GridItem xs={12} sm={8} md={4} lg={4}>
+
+            {/*-------------- DROPDOWN SELECTORS FOR CHOOSING LANGUAGES  -------------*/}
             <FormControl fullWidth className={classes.selectFormControl}>
             <InputLabel
                 htmlFor="language-from-select"
@@ -67,7 +99,7 @@ function TranslationInputArea() {
                     root: classes.selectMenuItem,
                     selected: classes.selectMenuItemSelected
                 }}
-                value="2"
+                value="en"
                 >
                 English
                 </MenuItem>
@@ -76,7 +108,7 @@ function TranslationInputArea() {
                     root: classes.selectMenuItem,
                     selected: classes.selectMenuItemSelected
                 }}
-                value="3"
+                value="es"
                 >
                 Spanish
                 </MenuItem>
@@ -85,7 +117,7 @@ function TranslationInputArea() {
                     root: classes.selectMenuItem,
                     selected: classes.selectMenuItemSelected
                 }}
-                value="4"
+                value="de"
                 >
                 German
                 </MenuItem>
@@ -126,7 +158,7 @@ function TranslationInputArea() {
                     root: classes.selectMenuItem,
                     selected: classes.selectMenuItemSelected
                 }}
-                value="2"
+                value="en"
                 >
                 English
                 </MenuItem>
@@ -135,7 +167,7 @@ function TranslationInputArea() {
                     root: classes.selectMenuItem,
                     selected: classes.selectMenuItemSelected
                 }}
-                value="3"
+                value="es"
                 >
                 Spanish
                 </MenuItem>
@@ -144,7 +176,7 @@ function TranslationInputArea() {
                     root: classes.selectMenuItem,
                     selected: classes.selectMenuItemSelected
                 }}
-                value="4"
+                value="de"
                 >
                 German
                 </MenuItem>
@@ -156,23 +188,27 @@ function TranslationInputArea() {
         
 
         {/* ------------ INPUT TEXT FOR TRANSLATION ---------------- */}
-          <GridItem xs={12} sm={8} md={4}>
+
+              <GridItem xs={12} sm={8} md={4}>
                 <CustomInput
                     labelText="Input Text"
                     id="float"
                     formControlProps={{
                     fullWidth: true
                     }}
-                    
+                    inputProps={{
+                        value: inputText,
+                        onChange: handleInputTextChange
+                    }}
                 />
-                <Button color="primary" round><Translate />Translate</Button>
+                <Button onClick={translate} color="primary" round><Translate />Translate</Button>
             </GridItem>
 
+            {/* ------ The resulting translation text ------- */}
             <GridItem xs={12} sm={6} md={4} lg={4}>
                 <h3>Translation</h3><br/>
                 <h5>{translationText}</h5>
             </GridItem>
-
 
         </GridContainer>
       </div>
