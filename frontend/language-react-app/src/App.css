@@ -25,7 +25,7 @@
 }
 
 .book-card {
-  max-height: 500px;
+
   margin-right: 10px;
   margin-bottom: 40px;
   margin-left: 10px;
@@ -35,6 +35,16 @@
   text-align: center;
   padding-top: 50px;
   padding-bottom:20px;
+}
+
+.book-card-author-text {
+  white-space: nowrap; 
+  overflow: scroll;
+}
+
+.book-card-container {
+  align-items: stretch;
+  text-align: center;
 }
 
 .btn-file {

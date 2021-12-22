@@ -86,10 +86,13 @@ function BookFinder() {
                     />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
-                <GridContainer sx={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-                {bookArr ? 
+                <GridContainer className="book-card-container" sx={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+                {bookArr ?
                 showBooks(bookArr["docs"].filter(filterBooks)) :
-                <h5>Search to see books here</h5>
+                
+                <GridItem>
+                    <h5>Search to see books here</h5>
+                </GridItem>
                 }
                 </GridContainer>
 
