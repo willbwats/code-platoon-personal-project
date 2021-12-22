@@ -17,7 +17,7 @@ function BookFinder() {
     //Open library books API call
     const searchBooks = async (searchText) => {
         console.log("Calling API..")
-        const res = await fetch(`http://openlibrary.org/search.json?q="${searchText}"&limit=20`);
+        const res = await fetch(`http://openlibrary.org/search.json?q="${searchText}"&limit=50`);
         let books = await res.json();
 
         console.log("populating book cards");
@@ -69,7 +69,7 @@ function BookFinder() {
                 alignItems="center"
                 justify="center"
                 >
-                <GridItem xs={12} sm={12} md={6}>
+                <GridItem xs={12} sm={12} md={6} lg={4}>
                     <h1>Book finder</h1>
                     <CustomInput
                         
@@ -89,7 +89,7 @@ function BookFinder() {
                 <GridContainer className="book-card-container" sx={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
                 {bookArr ?
                 showBooks(bookArr["docs"].filter(filterBooks)) :
-                
+
                 <GridItem>
                     <h5>Search to see books here</h5>
                 </GridItem>

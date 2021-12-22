@@ -54,8 +54,8 @@ export default function BookCard(props) {
             <span className="book-card-author-text">
             {props.author}
             </span>
-            <a target="_blank" href={genAmazonLink()}><Button color="primary">Search Amazon</Button></a>
-            <a target="_blank" href={genLibraryLink()}><Button color="primary">Read Online Free</Button></a>
+            <a className={classes.cardLink} target="_blank" href={genAmazonLink()}><Button color="primary">Search Amazon</Button></a>
+            <a target="_blank" href={genLibraryLink()}><Button color="primary">Open Library</Button></a>
         </CardBody>
         </Card>
     );
