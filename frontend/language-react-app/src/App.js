@@ -1,8 +1,14 @@
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import UserContext from './contexts/UserContext.js';
+import { getLoggedInUser, login } from 'UserAPI';
+
 
 //pages 
-import Home from './pages/Home.js'
+import HomePage from './pages/HomePage.js'
+import LoginPage from './pages/LoginPage.js';
+import SignupPage from './pages/SignupPage.js';
 import Translate from './pages/Translate.js'
 import Resources from './pages/Resources.js'
 
@@ -17,15 +23,60 @@ import Email from "@material-ui/icons/Email";
 import CustomDropdown from "./assets/jss/material-kit-pro-react/components/CustomDropdown/CustomDropdown.js";
 
 
+
+
 const useStyles = makeStyles(navbarsStyle);
 
 function App() {
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [ user, setUser ] = useState(null);
+  const [error, setError] = useState(null);
   const classes = useStyles();
 
+
+  console.log("USER: ", user)
+  useEffect(() => {
+    const getUser = async () => {
+      if (localStorage.getItem("auth-user") !== 'null') {
+        let response = await getLoggedInUser(localStorage.getItem("auth-user"));
+        let data = await response.json();
+        if (data.username) {
+          setIsLoggedIn(true);
+          setUser(data);
+        }
+      }
+    }
+    if (!user) {
+      getUser();
+    }
+  }, [user])
+
+  const handleLogin = async (evt) => {
+    evt.preventDefault();
+    let userObject = {
+      username: evt.target.username.value,
+      password: evt.target.password.value,
+    }
+    let response = await login(userObject);
+    let data = await response.json();
+    if (data.token) {
+      localStorage.setItem("auth-user", `${data.token}`);
+      setIsLoggedIn(true);
+      setUser(data.user);
+    }
+  }
+
+  const handleLogout = () => {
+    localStorage.setItem("auth-user", null);
+    setIsLoggedIn(false);
+    setUser(null);
+  }
   return (
     <div className="App">
+      
       <BrowserRouter>
+      <UserContext.Provider value={{ user: user, setUser: handleLogin, error: error }}>
+
         {/* ---------------  NAV BAR ----------------- */}
           <Header 
             brand="Language Exchange"
@@ -88,11 +139,14 @@ function App() {
         <div className="main-content-section">
 
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
+            <Route exact path="/login" element={<LoginPage isLoggedIn={isLoggedIn} handleLogin={handleLogin} handleLogout={handleLogout} user={user} />} />
+            <Route exact path="/signup" element={<SignupPage />} />
             <Route exact path="/translate" element={<Translate />} />
             <Route exact path="/resources" element={<Resources />} />
           </Routes>
         </div>
+        </UserContext.Provider>
       </BrowserRouter>
     </div>
   );
