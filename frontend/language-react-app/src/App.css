@@ -37,6 +37,10 @@
   padding-bottom:20px;
 }
 
+.book-card-title {
+  /* white-space: nowrap; */
+}
+
 .book-card-author-text {
   white-space: nowrap; 
   overflow: scroll;

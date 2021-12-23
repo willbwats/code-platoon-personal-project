@@ -42,15 +42,18 @@ export default function BookCard(props) {
     return (
         <Card style={{ width: "15rem" }}>
         <img
-            style={{ height: "150px", width: "100%", display: "block" }}
+            style={{ height: "200px", width: "100%", display: "block" }}
             className={classes.imgCardTop}
             src={`http://covers.openlibrary.org/b/isbn/${props.imgSrc}-M.jpg?default=false`}
             alt="Book cover"
-            onError={(e)=>{e.target.onerror = null; e.target.src="https://images-na.ssl-images-amazon.com/images/I/91bj48+ZkaL.jpg"}}
+            onError={(e)=>{e.target.onerror = null; e.target.src="https://ravenspacepublishing.org/wp-content/uploads/2019/04/default-book.jpg"}}
         />
 
         <CardBody>
-            <h4 className={classes.cardTitle}>{props.title}</h4>
+            <span className="book-card-title">
+                <h4 className={classes.cardTitle}>{props.title}</h4>
+            </span>
+            
             <span className="book-card-author-text">
             {props.author}
             </span>
