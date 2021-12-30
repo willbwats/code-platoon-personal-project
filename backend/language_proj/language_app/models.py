@@ -13,12 +13,16 @@ class Profile(models.Model):
     '''
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
     friends = models.ManyToManyField(User, related_name="friends", blank=True)
     creation_date = models.DateField(auto_now=True)
-    native_language = models.ForeignKey(Language, related_name="natives", on_delete=models.DO_NOTHING)
-    language_learning = models.ForeignKey(Language, related_name="learners", on_delete=models.DO_NOTHING)
-
+    native_language = models.CharField(max_length=255)
+    language_learning = models.CharField(max_length=255)
+    biography = models.TextField(max_length=2000, blank=True)
     discord_name = models.CharField(max_length=255, blank=True)
+    image = models.ImageField(upload_to="media", blank=True)
+
 
     def __str__(self):
         return f'{self.user.first_name} {self.native_language}'
