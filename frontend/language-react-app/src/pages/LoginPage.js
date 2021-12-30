@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Login = ({isLoggedIn, handleLogout, handleLogin}) => {
 
   if (isLoggedIn) {
     return <div>
-      <button onClick={handleLogout}>Logout</button>
       <div>
-        <Link to='/'>Home</Link>
+        <Navigate to='/'/>
       </div>
     </div>
   }
@@ -17,7 +16,7 @@ const Login = ({isLoggedIn, handleLogout, handleLogin}) => {
     <h1>Login Page</h1>
       <form onSubmit={handleLogin}>
         <label>UserName:</label>
-        <input type='text' placeholder='RonBurgondy' name='username' />
+        <input type='text' placeholder='username' name='username' />
         <label>Password:</label>
         <input type='password' name='password' />
         <button type='submit' >Submit</button>

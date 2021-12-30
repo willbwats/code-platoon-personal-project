@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import UserContext from './contexts/UserContext.js';
 import { getLoggedInUser, login } from 'UserAPI';
@@ -14,6 +14,7 @@ import Resources from './pages/Resources.js'
 
 //materialUI
 import { makeStyles } from "@material-ui/core/styles";
+import Avatar from '@mui/material/Avatar';
 import Header from './components/Header.js';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -21,6 +22,7 @@ import navbarsStyle from "assets/jss/material-kit-pro-react/views/componentsSect
 import Button from "./assets/jss/material-kit-pro-react/components/CustomButtons/Button.js";
 import Email from "@material-ui/icons/Email";
 import CustomDropdown from "./assets/jss/material-kit-pro-react/components/CustomDropdown/CustomDropdown.js";
+import UserProfilePage from 'pages/UserProfilePage';
 
 
 
@@ -30,6 +32,7 @@ const useStyles = makeStyles(navbarsStyle);
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ user, setUser ] = useState(null);
+  const [ userInitials, setUserInitials ] = useState("User");
   const [error, setError] = useState(null);
   const classes = useStyles();
 
@@ -41,8 +44,10 @@ function App() {
         let response = await getLoggedInUser(localStorage.getItem("auth-user"));
         let data = await response.json();
         if (data.username) {
+          console.log(data.username);
           setIsLoggedIn(true);
           setUser(data);
+          setUserInitials(data.username[0]);
         }
       }
     }
@@ -71,6 +76,8 @@ function App() {
     setIsLoggedIn(false);
     setUser(null);
   }
+
+
   return (
     <div className="App">
       
@@ -107,8 +114,29 @@ function App() {
                       <Email />
                     </Button>
                   </ListItem>
+                  
                   <ListItem className={classes.listItem}>
-                    <CustomDropdown
+                    {isLoggedIn ? <CustomDropdown
+                      left
+                      caret={false}
+                      hoverColor="dark"
+                      dropdownHeader="Choose an option"
+                      buttonText={
+                        <Avatar sx={{ bgcolor: 'green' }}>{user ? user.username[0] : "G"}</Avatar>}
+                       
+                      
+                      buttonProps={{
+                        className:
+                          classes.navLink + " " + classes.imageDropdownButton,
+                        color: "transparent"
+                      }}
+                      dropdownList={[
+                        <Link to="/">My Profile</Link>,
+                        <Link to="/" onClick={() => handleLogout()}>Sign out</Link>
+                      ]}
+                    />
+                      // -- Nav bar profile image when user is not logged in ----
+                    : <CustomDropdown
                       left
                       caret={false}
                       hoverColor="dark"
@@ -126,10 +154,11 @@ function App() {
                         color: "transparent"
                       }}
                       dropdownList={[
-                        "My Profile",
-                        "Sign out"
+                        "Sign up",
+                        "Sign in"
                       ]}
-                    />
+                    />}
+                    
                   </ListItem>
                 </List>
             }
@@ -144,7 +173,9 @@ function App() {
             <Route exact path="/signup" element={<SignupPage />} />
             <Route exact path="/translate" element={<Translate />} />
             <Route exact path="/resources" element={<Resources />} />
+            <Route exact path="/user/:id" element={<UserProfilePage isLoggedIn={isLoggedIn} />} />
           </Routes>
+        
         </div>
         </UserContext.Provider>
       </BrowserRouter>

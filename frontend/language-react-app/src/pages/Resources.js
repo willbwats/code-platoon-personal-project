@@ -7,8 +7,8 @@ function Resources() {
       <div>
         <div>
             <InfoArea
-                title="Find Resources"
-                description="Use our book search tool to find books related to your target language, or see our recommendations for other sites to use for a well-rounded learning experience."
+                title="Find a book"
+                description="Use our book search tool to find books related to your target language in the Open Library."
                 icon={MenuBookIcon}
                 iconColor="primary"
             />
