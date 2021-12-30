@@ -15,6 +15,18 @@
 
 */
 
+.homepage-header {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.find-a-language-partner {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+
 .main-content-section {
   margin-left: 10%;
   margin-right: 10%;
