@@ -4,7 +4,6 @@ import UserProfile from '../components/UserProfile';
 
 
 const UserProfilePage = ({ isLoggedIn }, props) => {
-    console.log(localStorage.getItem("auth-user"));
     return(
         <div>
             {

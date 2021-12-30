@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signupUser, makeProfile } from '../UserAPI';
+import CustomInput from '../assets/jss/material-kit-pro-react/components/CustomInput/CustomInput.js';
+import Button from "../assets/jss/material-kit-pro-react/components/CustomButtons/Button.js";
 
 const SignupPage = (props) => {
   let navigate = useNavigate();
@@ -38,28 +40,75 @@ const SignupPage = (props) => {
 
   return (
     <div>
-      <h1>Signup Page</h1>
+      <h1>Create Account</h1>
       <form onSubmit={handleSignup}>
-        <label>UserName:</label>
-        <input type='text' placeholder='username' name='username' />
-        <label>First name:</label>
-        <input type='text' name='first' />
-        <label>Last name:</label>
-        <input type='text' name='last' />
-        <label>Password:</label>
-        <input type='password' name='password' />
-        <label>Native Language:</label>
-        <input type='text' name='native' />
-        <label>Language you are learning:</label>
-        <input type='text' name='learning' />
-        <button type='submit' >Sign Up</button>
+        <CustomInput 
+            labeltext="Username"
+            inputProps={{
+              placeholder: "Username"
+            }}
+            formControlProps={{
+              fullWidth: true
+            }}
+            id='username'
+            name='username' />
+        <CustomInput 
+            labeltext="First name"
+            inputProps={{
+              placeholder: "First Name"
+            }}
+            formControlProps={{
+              fullWidth: true
+            }}
+            id='first'
+            name='first' />
+        <CustomInput 
+            labeltext="Last name"
+            inputProps={{
+              placeholder: "Last Name"
+            }}
+            formControlProps={{
+              fullWidth: true
+            }}
+            id='last'
+            name='last' />
+        <CustomInput 
+            labeltext="Password"
+            formControlProps={{
+              fullWidth: true
+            }}
+            inputProps={{
+                placeholder: "Password",
+                type: "password"
+              }}
+              id='password'
+            name='password' 
+            type='password'/>
+        <h2>About you</h2>
+        <h5>What is your native language?</h5>
+        <CustomInput 
+            labeltext="Native Language"
+            inputProps={{
+              placeholder: "Native Language"
+            }}
+            formControlProps={{
+              fullWidth: true
+            }}
+            id='native'
+            name='native' />
+        <h5>What language are you learning?</h5>
+        <CustomInput 
+            labeltext="What is your target language?"
+            inputProps={{
+              placeholder: "Target Language"
+            }}
+            formControlProps={{
+              fullWidth: true
+            }}
+            id='learning'
+            name='learning' />
+        <Button color='primary' type='submit' >Sign Up</Button>
       </form>
-      <div>
-        <Link to='/'>Home</Link>
-      </div>
-      <div>
-        <Link to='/login'>Login</Link>
-      </div>
     </div>
   );
 };

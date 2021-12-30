@@ -40,6 +40,16 @@ const login = (userObject) => {
       }).then(res => res)
     };
 
+    const getAllProfiles = async (token) => {
+        return fetch(`http://localhost:8000/api/profile/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${token}`
+        }
+      }).then(res => res)
+    };
+
     const getUserByID = async (id, token) => {
         return fetch(`http://localhost:8000/api/user/${id}`, {
             method: 'GET',
@@ -61,5 +71,5 @@ const login = (userObject) => {
     }).then(res => res)
   };
 
-  export { login, getLoggedInUser, signupUser, makeProfile, getProfileByID, getUserByID }
+  export { getAllProfiles, login, getLoggedInUser, signupUser, makeProfile, getProfileByID, getUserByID }
   

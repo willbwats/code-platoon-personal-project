@@ -45,7 +45,7 @@ const UserProfile = ({ token }, props) => {
                     {profileObj && profileObj.biography === '' ? <p>{profileObj && profileObj.first_name} has not added a biography yet!</p> : <p>{profileObj && profileObj.biography}</p>}
                 </GridItem>
                 <GridItem>
-                    <h3>{profileObj && profileObj.first_name}'s Friends</h3>
+                    <h3>Friends</h3>
                     {profileObj && profileObj.friends.length === 0 ? <p>{profileObj && profileObj.first_name} has not added any friends yet!</p> : <p>friends to show</p>}
                 </GridItem>
                 <GridItem>
