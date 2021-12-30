@@ -122,7 +122,7 @@ function App() {
                       hoverColor="dark"
                       dropdownHeader="Choose an option"
                       buttonText={
-                        <Avatar sx={{ bgcolor: 'green' }}>{user ? user.username[0] : "G"}</Avatar>}
+                        <Avatar sx={{ bgcolor: 'green' }}>{user ? user.username[0] : ""}</Avatar>}
                        
                       
                       buttonProps={{
@@ -131,7 +131,7 @@ function App() {
                         color: "transparent"
                       }}
                       dropdownList={[
-                        <Link to="/">My Profile</Link>,
+                        <Link to={user && `user/${user.profile}/`}>My Profile</Link>,
                         <Link to="/" onClick={() => handleLogout()}>Sign out</Link>
                       ]}
                     />
@@ -154,8 +154,8 @@ function App() {
                         color: "transparent"
                       }}
                       dropdownList={[
-                        "Sign up",
-                        "Sign in"
+                        <Link to="/signup">Sign up</Link>,
+                        <Link to="/login">Sign in</Link>
                       ]}
                     />}
                     
