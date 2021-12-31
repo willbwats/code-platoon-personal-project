@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext.js';
 //materialui
 // core components
@@ -63,18 +63,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
       };
       
     }, [mapped_profiles, token])
-    
-  // useEffect(() => {
-    
-  //   if(profiles !== null) {
-  //     let new_mapped_profiles = [];
-  //     for(let i=0; i<profiles.length; i++) {
-  //       new_mapped_profiles.push([profiles[i]['first_name'], profiles[i]['native_language'], profiles[i]['creation_date'], simpleButtons])
-  //     };
-  //     console.log("new mapped profiles", new_mapped_profiles);
-  //     setMappedProfiles(new_mapped_profiles);
 
-  // }}, [profiles])
     
 
   return (
@@ -94,7 +83,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
           </GridItem>
           </GridContainer>
           <GridContainer>
-          <GridItem md={4}>
+          <GridItem md={3} lg={4}>
             <InfoArea
                   title="Find resources"
                   description="Use our book finder tool to search for books in the Open Library"
@@ -124,12 +113,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
           <Table className="homepage-learners-table"
       tableHead={["Name", "Learning", "Native Language", "Date Joined", "Actions"]}
       tableData={mapped_profiles}
-      
-      // tableData={[
-      //   ["Andrew Mike", "Develop", "2013", "€ 99,225", simpleButtons],
-      //   ["John Doe", "Design", "2012", "€ 89,241", simpleButtons],
-      //   ["Alex Mike", "Design", "2010", "€ 92,144", simpleButtons]
-      // ]}
+
       customCellClasses={[
         classes.textCenter,
         classes.textRight,
@@ -149,18 +133,11 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
       }
       {
         // ---- HOME PAGE FOR NON-USER -----
-        !isLoggedIn
-        ?
+        !isLoggedIn &&
         <div>
-          <div>
-            <Link to='/login'>Login</Link>
-          </div>
-          <div>
-            <Link to='/signup'>Signup</Link>
-          </div>
+          <Navigate to='/login'/>
         </div>
-        :
-        <button onClick={handleLogout}>Logout</button>
+
       }
     </div>
   );
