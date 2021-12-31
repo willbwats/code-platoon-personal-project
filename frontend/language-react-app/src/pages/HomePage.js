@@ -53,7 +53,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
         if(converted_data !== null) {
           let new_mapped_profiles = [];
           for(let i=0; i<converted_data.length; i++) {
-            new_mapped_profiles.push([converted_data[i]['first_name'], converted_data[i]['language_learning'], converted_data[i]['native_language'], converted_data[i]['creation_date'], simpleButtons])
+            new_mapped_profiles.push([converted_data[i]['first_name'], converted_data[i]['language_learning'], converted_data[i]['native_language'], converted_data[i]['creation_date'], <Link to={`user/${converted_data[i]['id']}/`}><Button size="sm" color="primary">View Profile</Button></Link>])
           };
           console.log("new mapped profiles", new_mapped_profiles);
           setMappedProfiles(new_mapped_profiles);}
@@ -83,7 +83,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
           </GridItem>
           </GridContainer>
           <GridContainer>
-          <GridItem md={3} lg={4}>
+          <GridItem md={5} lg={4}>
             <InfoArea
                   title="Find resources"
                   description="Use our book finder tool to search for books in the Open Library"
@@ -91,7 +91,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
                   iconColor="primary"
               />
           </GridItem>
-          <GridItem md={4}>
+          <GridItem md={5} lg={4}>
               <InfoArea
                   title="Discover Vocabulary"
                   description="Use our translation tool to discover new words in your target language."
@@ -99,7 +99,7 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
                   iconColor="primary"
               />
             </GridItem>
-            <GridItem md={4}>
+            <GridItem md={5} lg={4}>
               <InfoArea
                   title="Find a partner"
                   description="Connect with native speakers of your target language for a better learning experience."
@@ -111,19 +111,19 @@ const HomePage = ({ isLoggedIn, handleLogout }) => {
           <h2 className="find-a-language-partner">Find a language partner</h2>
           
           <Table className="homepage-learners-table"
-      tableHead={["Name", "Learning", "Native Language", "Date Joined", "Actions"]}
+      tableHead={["Name", "Learning", "Native Language", "Date Joined", "Profile"]}
       tableData={mapped_profiles}
 
       customCellClasses={[
         classes.textCenter,
-        classes.textRight,
-        classes.textRight
+        classes.textCenter,
+        classes.textCenter
       ]}
       customClassesForCells={[0, 4, 5]}
       customHeadCellClasses={[
         classes.textCenter,
-        classes.textRight,
-        classes.textRight
+        classes.textCenter,
+        classes.textCenter
       ]}
       customHeadClassesForCells={[0, 4, 5]}
     />

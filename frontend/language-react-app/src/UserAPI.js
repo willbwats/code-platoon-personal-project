@@ -71,5 +71,30 @@ const login = (userObject) => {
     }).then(res => res)
   };
 
-  export { getAllProfiles, login, getLoggedInUser, signupUser, makeProfile, getProfileByID, getUserByID }
+    const setBio = async(profile_id, token, newBioText) => {
+        let biographyObj = {'biography': newBioText}
+        console.log("calling API to change bio");
+        return fetch(`http://localhost:8000/api/profile/${profile_id}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${token}`
+      },
+      body: JSON.stringify(biographyObj)
+    }).then(res => res)
+    }
+
+    const setDiscord = async(profile_id, token, newDiscordText) => {
+        let discordObj = {'discord_name': newDiscordText}
+        console.log("calling API to change discord");
+        return fetch(`http://localhost:8000/api/profile/${profile_id}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${token}`
+      },
+      body: JSON.stringify(discordObj)
+    }).then(res => res)
+    }
+  export { getAllProfiles, login, getLoggedInUser, signupUser, makeProfile, getProfileByID, getUserByID, setBio, setDiscord }
   

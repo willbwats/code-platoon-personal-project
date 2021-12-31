@@ -20,9 +20,10 @@
   padding-bottom: 20px;
 }
 
+
 .find-a-language-partner {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 40px;
 }
 
@@ -30,6 +31,19 @@
 .main-content-section {
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.profile-about-section {
+  padding-top: -5px;
+}
+
+#footer {
+  margin-top:100px;
+  margin-bottom:20px;
+}
+
+.profile-native-lang {
+justify-content: space-between;
 }
 
 .translate-input-area {
@@ -298,12 +312,17 @@ legend {
   *:focus {
     outline: 0; }
 
+.edit-button {
+  margin-left: 50px;
+  padding-left:50px;
+}
+
 a {
   color: #9c27b0;
   text-decoration: none;
   background-color: transparent; }
   a:hover, a:focus {
-    color: #89229b;
+    color: #e0e0e0;
     text-decoration: none; }
 
 label {

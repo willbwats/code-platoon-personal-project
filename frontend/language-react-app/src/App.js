@@ -23,9 +23,13 @@ import Button from "./assets/jss/material-kit-pro-react/components/CustomButtons
 import Email from "@material-ui/icons/Email";
 import CustomDropdown from "./assets/jss/material-kit-pro-react/components/CustomDropdown/CustomDropdown.js";
 import UserProfilePage from 'pages/UserProfilePage';
-
-
-
+import GridItem from 'assets/jss/material-kit-pro-react/components/Grid/GridItem.js';
+import GridContainer from 'assets/jss/material-kit-pro-react/components/Grid/GridContainer.js';
+import Card from "assets/jss/material-kit-pro-react/components/Card/Card.js";
+import CardBody from "assets/jss/material-kit-pro-react/components/Card/CardBody.js";
+import CustomInput from 'assets/jss/material-kit-pro-react/components/CustomInput/CustomInput.js';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Mail from "@material-ui/icons/Mail";
 
 const useStyles = makeStyles(navbarsStyle);
 
@@ -77,6 +81,10 @@ function App() {
     setUser(null);
   }
 
+  const handleMyProfileClicked = () => {
+    return <Navigate to={`user/${user.profile}`} />
+
+  }
 
   return (
     <div className="App">
@@ -122,7 +130,7 @@ function App() {
                       hoverColor="dark"
                       dropdownHeader="Choose an option"
                       buttonText={
-                        <Avatar sx={{ bgcolor: 'green' }}>{user ? user.username[0] : ""}</Avatar>}
+                        <Avatar sx={{ bgcolor: 'darkblue' }}>{user ? user.username[0] : ""}</Avatar>}
                        
                       
                       buttonProps={{
@@ -131,7 +139,7 @@ function App() {
                         color: "transparent"
                       }}
                       dropdownList={[
-                        <Link to={user && `user/${user.profile}/`}>My Profile</Link>,
+                        <Link onClick={() => handleMyProfileClicked()} to={user && `user/${user.profile}/`}>My Profile</Link>,
                         <Link to="/" onClick={() => handleLogout()}>Sign out</Link>
                       ]}
                     />
@@ -166,6 +174,7 @@ function App() {
 
             {/* ---------------    END OF NAV BAR ----------------- */}
         <div className="main-content-section">
+      
 
           <Routes>
             <Route exact path="/" element={<HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} />
@@ -175,11 +184,58 @@ function App() {
             <Route exact path="/resources" element={<Resources />} />
             <Route exact path="/user/:id" element={<UserProfilePage isLoggedIn={isLoggedIn} />} />
           </Routes>
-        
+        </div>
+        <div id="footer" className={classes.container}>
+          <GridContainer backgroundColor="black">
+            <GridItem xs={12} sm={6} md={6}>
+              <h3 className={classes.title}>Sign up for our word of the day!</h3>
+              <p className={classes.description}>
+                Join our mailing list and get a new word along with example sentences in your inbox every day! 
+              </p>
+            </GridItem>
+            <GridItem xs={12} sm={6} md={6}>
+              <Card plain>
+                <CardBody>
+                  <form>
+                    <GridContainer>
+                      <GridItem xs={12} sm={6} md={6} lg={8}>
+                        <CustomInput
+                          id="emailPreFooter2"
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.formFix
+                          }}
+                          inputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <Mail />
+                              </InputAdornment>
+                            ),
+                            placeholder: "Your Email..."
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={6} md={6} lg={4}>
+                        <Button
+                          color="primary"
+                          round
+                          block
+                          className={classes.subscribeButton}
+                        >
+                          subscribe
+                        </Button>
+                      </GridItem>
+                    </GridContainer>
+                  </form>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
         </div>
         </UserContext.Provider>
       </BrowserRouter>
     </div>
+    
   );
 }
 
